@@ -2,27 +2,44 @@ package com.revature.P1AndrewBrittain.Models;
 
 public class Employee {
 
-        private String employeeEmail;
-        private String name;
-        private String password;
+    public String getEmployeeEmail() {
+        return employeeEmail;
+    }
+
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
+    }
+
+    private String employeeEmail;
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    private String employeeName;
+
+    public String getEmployeePassword() {
+        return employeePassword;
+    }
+
+    public void setEmployeePassword(String employeePassword) {
+        this.employeePassword = employeePassword;
+    }
+
+    private String employeePassword;
 
 
-        // Why have the below code?
+
         public Employee(){}
 
-        public Employee(String email, String name, double balance){
-            this.employeeEmail = email;
-            this.name = name;
+        public Employee(String employeeEmail, String employeeName, double balance){
+            this.employeeEmail = employeeEmail;
+            this.employeeName = employeeName;
 
-        }
-
-        // What are the below methods for? Why do we need them?
-        public String getEmail(){
-            return employeeEmail;
-        }
-
-        public String getName(){
-            return name;
         }
 
 
