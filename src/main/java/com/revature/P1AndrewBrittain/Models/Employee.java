@@ -1,6 +1,11 @@
 package com.revature.P1AndrewBrittain.Models;
 
 public class Employee {
+    private String employeeName;
+    private String employeeEmail;
+    private String employeePassword;
+    private boolean isManagerTrue;
+
 
     public String getEmployeeEmail() {
         return employeeEmail;
@@ -10,8 +15,6 @@ public class Employee {
         this.employeeEmail = employeeEmail;
     }
 
-    private String employeeEmail;
-
     public String getEmployeeName() {
         return employeeName;
     }
@@ -20,8 +23,6 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-    private String employeeName;
-
     public String getEmployeePassword() {
         return employeePassword;
     }
@@ -29,9 +30,6 @@ public class Employee {
     public void setEmployeePassword(String employeePassword) {
         this.employeePassword = employeePassword;
     }
-
-    private String employeePassword;
-
 
 
         public Employee(){}

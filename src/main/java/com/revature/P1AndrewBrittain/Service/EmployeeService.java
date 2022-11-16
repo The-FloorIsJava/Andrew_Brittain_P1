@@ -14,15 +14,15 @@ public class EmployeeService {
 
     public boolean isEmployeeValid(Employee newEmployee){
         if(newEmployee == null) return false;
-        if(newEmployee.getEmail() == null || newEmployee.getEmail().trim().equals("")) return false;
-        if(newEmployee.getName() == null || newEmployee.getName().trim().equals("")) return false;
+        if(newEmployee.getEmployeeEmail() == null || newEmployee.getEmployeeEmail().trim().equals("")) return false;
+        if(newEmployee.getEmployeeName() == null || newEmployee.getEmployeeName().trim().equals("")) return false;
         return true;
     }
 
     public boolean isEmailAvailable(String email){
         for(Employee employee: employeeRoll){
             if(employee == null) break;
-            if(employee.getEmail().equals(email)){
+            if(employee.getEmployeeEmail().equals(email)){
                 return false;
             }
         }
