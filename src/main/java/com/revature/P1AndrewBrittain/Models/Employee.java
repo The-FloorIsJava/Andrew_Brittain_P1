@@ -34,12 +34,18 @@ public class Employee {
 
         public Employee(){}
 
-        public Employee(String employeeEmail, String employeeName, double balance){
+        public Employee(String employeeEmail, String employeeName, String employeePassword, boolean isManagerTrue){
             this.employeeEmail = employeeEmail;
             this.employeeName = employeeName;
-
         }
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "Employee Email: " + employeeEmail +
+                ", Employee Name: " + employeeName + " , Is a Manager?: " +
+                isManagerTrue +
+                "}";
+    }
     }
 

@@ -2,6 +2,7 @@ package com.revature.P1AndrewBrittain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.P1AndrewBrittain.Controller.EmployeeController;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -11,9 +12,7 @@ public class JavalinApp {
         Javalin app = Javalin.create()
                 .start(8080);
 
-
-
-        app.get("/hello", ctx -> ctx.html("Hello, Javalin!"));
+        new EmployeeController(app).employeeEndpoint();
 
 
     }
