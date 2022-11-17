@@ -4,9 +4,7 @@ import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Util.ConnectionFactory;
 import com.revature.P1AndrewBrittain.Util.Interface.Crudable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class EmployeeDAO implements Crudable<Employee> {
@@ -70,6 +68,32 @@ public class EmployeeDAO implements Crudable<Employee> {
     }
 
     public Employee loginCheck(String employeeName, String employeePassword){
+
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            String sql = "select * from customer where employee_name = ? and employee_password = ";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, employeeName);
+            preparedStatement.setString(2, employeePassword);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (!resultSet.next()){
+                throw new RuntimeException("Entered information for " + employeeName + " was incorrect. Please try again.");
+            }
+
+            Employee employee = new Employee();
+            employee.setEmployeeEmail(resultSet.getString("employee_email"));
+            employee.setEmployeeName(resultSet.getString("employee_name"));
+            employee.setEmployeePassword(resultSet.getString("employee_password"));
+            employee.setEmployeeIsManagerTrue(resultSet.getBoolean("is_manager_true"));
+
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
         return null;
     }
 }

@@ -60,5 +60,9 @@ public class Employee {
     public boolean getIsManagerTrue() {
         return isManagerTrue;
     }
+
+    public void setEmployeeIsManagerTrue(boolean isManagerTrue) {
+        this.isManagerTrue = isManagerTrue;
+    }
 }
 
