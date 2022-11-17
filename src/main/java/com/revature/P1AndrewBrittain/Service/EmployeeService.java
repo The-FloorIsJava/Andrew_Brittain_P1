@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeService {
-
+/*
     public boolean isEmployeeValid(Employee newEmployee){
         if(newEmployee == null) return false;
         if(newEmployee.getEmployeeEmail() == null || newEmployee.getEmployeeEmail().trim().equals("")) return false;
@@ -23,31 +23,41 @@ public class EmployeeService {
         }
         return true;
     }
+    */
 
-    List<Employee> employeeList;
+    private Employee sessionEmployee = null;
+
 
     public EmployeeService(){
-        employeeList = new ArrayList<>();
     }
 
     public void addEmployee(Employee employee){
-        employeeList.add(employee);
     }
 
     public Employee getEmployee(String employeeName){
-        for (int i = 0; i < employeeList.size(); i++){
-            Employee e = employeeList.get(i);
-            if (e.getEmployeeName().equals(employeeName)){
-                return employeeList.get(i);
-            }
-        }
-        return null;
+     return null;
+    }
+
+    public void removeEmployee( String employeeEmail){
+
     }
 
     public List<Employee> getAllEmployees(){
-        return employeeList;
+    return null;
     }
 
+public void login(){
+        //implement with dao
+        sessionEmployee = null;
+}
 
 
+
+public void logout(){
+       sessionEmployee = null;
+}
+
+public Employee getSessionEmployee(){
+        return sessionEmployee;
+}
 }

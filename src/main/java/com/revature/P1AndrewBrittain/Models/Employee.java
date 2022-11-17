@@ -6,7 +6,21 @@ public class Employee {
     private String employeePassword;
     private boolean isManagerTrue;
 
+    public Employee(){}
 
+    public Employee(String employeeEmail, String employeeName, String employeePassword) {
+        this.employeeEmail = employeeEmail;
+        this.employeeName = employeeName;
+        this.employeePassword = employeePassword;
+        this.isManagerTrue = false;
+    }
+
+    public Employee(String employeeEmail, String employeeName, String employeePassword, boolean isManagerTrue){
+        this.employeeEmail = employeeEmail;
+        this.employeeName = employeeName;
+        this.employeePassword = employeePassword;
+        this.isManagerTrue = isManagerTrue;
+    }
     public String getEmployeeEmail() {
         return employeeEmail;
     }
@@ -32,12 +46,7 @@ public class Employee {
     }
 
 
-        public Employee(){}
 
-        public Employee(String employeeEmail, String employeeName, String employeePassword, boolean isManagerTrue){
-            this.employeeEmail = employeeEmail;
-            this.employeeName = employeeName;
-        }
 
     @Override
     public String toString() {
@@ -47,5 +56,9 @@ public class Employee {
                 isManagerTrue +
                 "}";
     }
+
+    public boolean getIsManagerTrue() {
+        return isManagerTrue;
     }
+}
 
