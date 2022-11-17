@@ -10,40 +10,45 @@ import io.javalin.http.Context;
 import java.util.List;
 
 public class EmployeeController {
-
     EmployeeService employeeService;
-
     Javalin app;
-
     public EmployeeController(Javalin app){
         employeeService = new EmployeeService();
         this.app=app;
     }
-
     public void employeeEndpoint(){
-
         app.get("hello", this::helloHandler);
-        app.post("employee", this::postEmployeeHandler);
-        app.get("employee", this::getAllEmployeeHandler);
-
+        app.post("register", this::postEmployeeHandler);
+        app.post("login", this::loginHandler);
+        app.delete("logout", this::logoutHandler);
+        app.get("allemployees", this::getAllEmployeeHandler);
+        app.get("employee/{employeeName}", this::getSpecificEmployeeHandler);
     }
+    private void helloHandler(Context context) {
 
+        context.result("Welcome to SkyNet");
+    }
+    private void postEmployeeHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Employee employee = mapper.readValue(context.body(), Employee.class);
+        employeeService.addEmployee(employee);
+        context.json(employee);
+    }
+    private void loginHandler(Context context) {
+    }
+    private void logoutHandler(Context context) {
+    }
     private void getAllEmployeeHandler(Context context) {
         List<Employee> allEmployees = employeeService.getAllEmployees();
         context.json(allEmployees);
     }
+    private void getSpecificEmployeeHandler(Context context){
 
-    private void postEmployeeHandler(Context context) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-    Employee employee = mapper.readValue(context.body(), Employee.class);
-    employeeService.addEmployee(employee);
-    context.json(employee);
     }
 
 
-    private void helloHandler(Context context) {
-        context.result("Welcome to SkyNet");
-    }
+
+
 
 
 }
