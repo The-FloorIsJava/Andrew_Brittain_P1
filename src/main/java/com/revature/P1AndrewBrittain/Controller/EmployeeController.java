@@ -2,6 +2,7 @@ package com.revature.P1AndrewBrittain.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.P1AndrewBrittain.DAO.EmployeeDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Service.EmployeeService;
 import io.javalin.Javalin;
@@ -13,7 +14,7 @@ public class EmployeeController {
     EmployeeService employeeService;
     Javalin app;
     public EmployeeController(Javalin app){
-        employeeService = new EmployeeService();
+        employeeService = new EmployeeService(new EmployeeDAO());
         this.app=app;
     }
     public void employeeEndpoint(){
@@ -43,7 +44,9 @@ public class EmployeeController {
         context.json(allEmployees);
     }
     private void getSpecificEmployeeHandler(Context context){
-
+        String employeeEmail = context.pathParam("employeeEmail");
+        Employee employee = employeeService.getEmployee(employeeEmail);
+        context.json(employee);
     }
 
 

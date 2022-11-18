@@ -1,5 +1,6 @@
 package com.revature.P1AndrewBrittain.Service;
 
+import com.revature.P1AndrewBrittain.DAO.EmployeeDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 
 import java.util.ArrayList;
@@ -27,14 +28,17 @@ public class EmployeeService {
 
     private Employee sessionEmployee = null;
 
+    private final EmployeeDAO employeeDAO;
 
-    public EmployeeService(){
+    public EmployeeService(EmployeeDAO employeeDAO){
+        this.employeeDAO = employeeDAO;
     }
 
-    public void addEmployee(Employee employee){
+    public Employee addEmployee(Employee employee){
+        return employeeDAO.create(employee);
     }
 
-    public Employee getEmployee(String employeeName){
+    public Employee getEmployee(String employeeEmail){
      return null;
     }
 
