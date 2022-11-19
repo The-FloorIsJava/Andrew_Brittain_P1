@@ -47,12 +47,12 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees(){
-    return null;
+    return employeeDAO.findAll();
     }
 
-public void login(){
+public void login(String employeeEmail, String employeePassword){
         //implement with dao
-        sessionEmployee = null;
+        sessionEmployee = employeeDAO.loginCheck(employeeEmail, employeePassword);
 }
 
 

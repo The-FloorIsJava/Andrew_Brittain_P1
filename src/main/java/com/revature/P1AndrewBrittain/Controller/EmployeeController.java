@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.P1AndrewBrittain.DAO.EmployeeDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Service.EmployeeService;
+import com.revature.P1AndrewBrittain.Util.DTO.LoginCreds;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -35,9 +36,16 @@ public class EmployeeController {
         employeeService.addEmployee(employee);
         context.json(employee);
     }
-    private void loginHandler(Context context) {
+    private void loginHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginCreds loginCreds = mapper.readValue(context.body(), LoginCreds.class);
+        employeeService.login(loginCreds.getEmployeeName(), loginCreds.getEmployeePassword());
+        context.json("Successfully logged in!");
     }
     private void logoutHandler(Context context) {
+        String employeeName = employeeService.getSessionEmployee().getEmployeeEmail();
+        employeeService.logout();
+        context.json(employeeName + "is now logged out");
     }
     private void getAllEmployeeHandler(Context context) {
         List<Employee> allEmployees = employeeService.getAllEmployees();

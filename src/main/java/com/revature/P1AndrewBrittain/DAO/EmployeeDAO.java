@@ -6,6 +6,7 @@ import com.revature.P1AndrewBrittain.Util.Exceptions.InvalidEmployeeInputExcepti
 import com.revature.P1AndrewBrittain.Util.Interface.Crudable;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAO implements Crudable<Employee> {
@@ -41,7 +42,6 @@ public class EmployeeDAO implements Crudable<Employee> {
             return newEmployee;
 
         } catch (SQLException e) {
-
             e.printStackTrace();
             return null;
         }
@@ -50,7 +50,24 @@ public class EmployeeDAO implements Crudable<Employee> {
 
     @Override
     public List<Employee> findAll() {
-        return null;
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            List<Employee> cemployees = new ArrayList<>();
+
+            String sql = "select * from employee";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while(resultSet.next()){
+                cemployees.add(convertSqlInfoToEmployee(resultSet));
+            }
+
+            return cemployees;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -83,14 +100,7 @@ public class EmployeeDAO implements Crudable<Employee> {
             if (!resultSet.next()){
                 throw new InvalidEmployeeInputException("Entered information for " + employeeName + " was incorrect. Please try again.");
             }
-
-            Employee employee = new Employee();
-            employee.setEmployeeEmail(resultSet.getString("employee_email"));
-            employee.setEmployeePassword(resultSet.getString("employee_password"));
-            employee.setEmployeeIsManagerTrue(resultSet.getBoolean("is_manager_true"));
-
-            return employee;
-
+            return convertSqlInfoToEmployee(resultSet);
 
 
         } catch (SQLException e){
@@ -98,5 +108,15 @@ public class EmployeeDAO implements Crudable<Employee> {
             return null;
         }
 
+    }
+
+    private Employee convertSqlInfoToEmployee(ResultSet resultSet) throws SQLException {
+        Employee employee = new Employee();
+
+        employee.setEmployeeEmail(resultSet.getString("employee_email"));
+        employee.setEmployeePassword(resultSet.getString("employee_password"));
+        employee.setEmployeeIsManagerTrue(resultSet.getBoolean("is_manager_true"));
+
+        return employee;
     }
 }
