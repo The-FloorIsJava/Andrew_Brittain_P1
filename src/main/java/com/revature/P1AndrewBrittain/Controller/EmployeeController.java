@@ -33,8 +33,12 @@ public class EmployeeController {
     private void postEmployeeHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Employee employee = mapper.readValue(context.body(), Employee.class);
-        employeeService.addEmployee(employee);
-        context.json(employee);
+        employee = employeeService.addEmployee(employee);
+        if (employee == null) {
+            context.json("You have not reistered your profile.");
+        }else{
+            context.json(employee);
+        }
     }
     private void loginHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();

@@ -26,13 +26,13 @@ public class EmployeeDAO implements Crudable<Employee> {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);*/
 
-            String sql = "insert into employee (employee_email, employee_name, employee_password, is_manager_true) values (?, ?, ?)";
+            String sql = "insert into employee (employee_email, employee_password, is_manager_true) values (?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, newEmployee.getEmployeeEmail());
-            preparedStatement.setString(1, newEmployee.getEmployeePassword());
-            preparedStatement.setBoolean(1, newEmployee.getIsManagerTrue());
+            preparedStatement.setString(2, newEmployee.getEmployeePassword());
+            preparedStatement.setBoolean(3, newEmployee.getIsManagerTrue());
 
             int checkInsert = preparedStatement.executeUpdate();
 
