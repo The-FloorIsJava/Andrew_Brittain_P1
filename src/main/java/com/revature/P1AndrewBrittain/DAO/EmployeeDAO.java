@@ -51,7 +51,7 @@ public class EmployeeDAO implements Crudable<Employee> {
     @Override
     public List<Employee> findAll() {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
-            List<Employee> cemployees = new ArrayList<>();
+            List<Employee> employees = new ArrayList<>();
 
             String sql = "select * from employee";
 
@@ -59,10 +59,10 @@ public class EmployeeDAO implements Crudable<Employee> {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while(resultSet.next()){
-                cemployees.add(convertSqlInfoToEmployee(resultSet));
+                employees.add(convertSqlInfoToEmployee(resultSet));
             }
 
-            return cemployees;
+            return employees;
 
         } catch (SQLException e){
             e.printStackTrace();

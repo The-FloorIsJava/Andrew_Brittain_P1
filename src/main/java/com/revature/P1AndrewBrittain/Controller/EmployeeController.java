@@ -23,7 +23,7 @@ public class EmployeeController {
         app.post("register", this::postEmployeeHandler);
         app.post("login", this::loginHandler);
         app.delete("logout", this::logoutHandler);
-        app.get("allemployees", this::getAllEmployeeHandler);
+        app.get("allEmployees", this::getAllEmployeeHandler);
         app.get("employee/{employeeName}", this::getSpecificEmployeeHandler);
     }
     private void helloHandler(Context context) {
