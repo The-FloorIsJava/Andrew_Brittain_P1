@@ -2,15 +2,15 @@ package com.revature.P1AndrewBrittain.Util.DTO;
 
 public class LoginCreds {
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getEmployeeEmail() {
+        return employeeEmail;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setEmployeeName(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
     }
 
-    private String employeeName;
+    private String employeeEmail;
 
     public String getEmployeePassword() {
         return employeePassword;

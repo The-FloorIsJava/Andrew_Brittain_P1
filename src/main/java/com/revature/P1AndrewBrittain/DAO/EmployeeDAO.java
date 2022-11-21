@@ -85,20 +85,20 @@ public class EmployeeDAO implements Crudable<Employee> {
         return false;
     }
 
-    public Employee loginCheck(String employeeName, String employeePassword){
+    public Employee loginCheck(String employeeEmail, String employeePassword){
 
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
 
-            String sql = "select * from customer where employee_name = ? and employee_password = ?";
+            String sql = "select * from employee where employee_email = ? and employee_password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, employeeName);
+            preparedStatement.setString(1, employeeEmail);
             preparedStatement.setString(2, employeePassword);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.next()){
-                throw new InvalidEmployeeInputException("Entered information for " + employeeName + " was incorrect. Please try again.");
+                throw new InvalidEmployeeInputException("Entered information for " + employeeEmail + " was incorrect. Please try again.");
             }
             return convertSqlInfoToEmployee(resultSet);
 

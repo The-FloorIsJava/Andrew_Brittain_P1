@@ -24,7 +24,7 @@ public class EmployeeController {
         app.post("login", this::loginHandler);
         app.delete("logout", this::logoutHandler);
         app.get("allEmployees", this::getAllEmployeeHandler);
-        app.get("employee/{employeeName}", this::getSpecificEmployeeHandler);
+        app.get("employee/{employeeId}", this::getSpecificEmployeeHandler);
     }
     private void helloHandler(Context context) {
 
@@ -35,7 +35,7 @@ public class EmployeeController {
         Employee employee = mapper.readValue(context.body(), Employee.class);
         employee = employeeService.addEmployee(employee);
         if (employee == null) {
-            context.json("You have not reistered your profile.");
+            context.json("You have not registered your profile.");
         }else{
             context.json(employee);
         }
@@ -43,21 +43,21 @@ public class EmployeeController {
     private void loginHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginCreds loginCreds = mapper.readValue(context.body(), LoginCreds.class);
-        employeeService.login(loginCreds.getEmployeeName(), loginCreds.getEmployeePassword());
+        employeeService.login(loginCreds.getEmployeeEmail(), loginCreds.getEmployeePassword());
         context.json("Successfully logged in!");
     }
     private void logoutHandler(Context context) {
         String employeeName = employeeService.getSessionEmployee().getEmployeeEmail();
         employeeService.logout();
-        context.json(employeeName + "is now logged out");
+        context.json(employeeName + " is now logged out");
     }
     private void getAllEmployeeHandler(Context context) {
         List<Employee> allEmployees = employeeService.getAllEmployees();
         context.json(allEmployees);
     }
     private void getSpecificEmployeeHandler(Context context){
-        String employeeEmail = context.pathParam("employeeEmail");
-        Employee employee = employeeService.getEmployee(employeeEmail);
+        String employeeId = context.pathParam("employeeId");
+        Employee employee = employeeService.getEmployee(employeeId);
         context.json(employee);
     }
 

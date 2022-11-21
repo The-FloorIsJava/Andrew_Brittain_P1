@@ -38,7 +38,7 @@ public class EmployeeService {
         return employeeDAO.create(employee);
     }
 
-    public Employee getEmployee(String employeeEmail){
+    public Employee getEmployee(String employeeId){
      return null;
     }
 
@@ -58,10 +58,10 @@ public void login(String employeeEmail, String employeePassword){
 
 
 public void logout(){
-       sessionEmployee = null;
+       this.sessionEmployee = null;
 }
 
 public Employee getSessionEmployee(){
-        return sessionEmployee;
+        return this.sessionEmployee;
 }
 }
