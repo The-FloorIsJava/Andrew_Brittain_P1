@@ -5,10 +5,6 @@ public class Employee {
     private String employeePassword;
     private boolean isManagerTrue;
 
-
-
-    private int employeeId;
-
     public Employee(){}
 
     public Employee(String employeeEmail, String employeePassword) {
@@ -39,12 +35,7 @@ public class Employee {
     public void setEmployeeIsManagerTrue(boolean isManagerTrue) {
         this.isManagerTrue = isManagerTrue;
     }
-    public int getEmployeeId() {
-        return employeeId;
-    }
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
+
     @Override
     public String toString() {
         return "Employee{" +

@@ -33,12 +33,28 @@ public class EmployeeService {
     public EmployeeService(EmployeeDAO employeeDAO){
         this.employeeDAO = employeeDAO;
     }
-
     public Employee addEmployee(Employee employee){
-        return employeeDAO.create(employee);
+        List<Employee> employees = employeeDAO.findAll();
+        List<String> emails = new ArrayList<>();
+        boolean isUnique;
+
+        for (int i = 0; i<employees.size(); i++){
+            emails.add(employees.get(i).getEmployeeEmail());
+        }
+        if (emails.contains(employee.getEmployeeEmail())){
+            isUnique = false;
+        } else {
+            isUnique = true;
+        }
+
+        if (isUnique == true){
+            return employeeDAO.create(employee);
+        } else {
+            return null;
+        }
     }
 
-    public Employee getEmployee(String employeeId){
+    public Employee getEmployee(Employee employee){
      return null;
     }
 
