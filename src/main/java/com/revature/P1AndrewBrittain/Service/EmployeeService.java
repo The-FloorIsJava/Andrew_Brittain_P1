@@ -26,8 +26,10 @@ public class EmployeeService {
     }
     */
 
-    private Employee sessionEmployee = null;
 
+
+    private Employee sessionEmployee = null;
+    }
     private final EmployeeDAO employeeDAO;
 
     public EmployeeService(EmployeeDAO employeeDAO){

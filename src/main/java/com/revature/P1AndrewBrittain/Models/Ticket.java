@@ -21,6 +21,28 @@ public class Ticket {
                 '}';
     }
 
+    public Ticket(){}
+
+    public Ticket(double amount, String requester, String requestType) {
+        this.amount = amount;
+        this.requester = requester;
+        this.requestType = requestType;
+    }
+    public Ticket(double amount, String requester, String requestType, boolean isTicketApproved) {
+        this.amount = amount;
+        this.requester = requester;
+        this.requestType = requestType;
+    }
+    private String ticketPending(String approval){
+        if (!isTicketApproved){
+            return "Denied";
+        } else if (isTicketApproved){
+            return "Approved";
+        } else {
+            return "Pending";
+        }
+    }
+
     public double getAmount() {
         return amount;
     }

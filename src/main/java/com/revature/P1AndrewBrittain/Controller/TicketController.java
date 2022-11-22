@@ -1,11 +1,15 @@
 package com.revature.P1AndrewBrittain.Controller;
 
+import com.revature.P1AndrewBrittain.Models.Employee;
+import com.revature.P1AndrewBrittain.Models.Ticket;
 import com.revature.P1AndrewBrittain.Service.EmployeeService;
 import com.revature.P1AndrewBrittain.Service.TicketService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 public class TicketController {
     
@@ -34,6 +38,9 @@ public class TicketController {
     }
 
     private void viewTicketHandler(Context context) {
+        List<Ticket> allYourTickets = ticketService.getAllEmployees();
+        context.json(allYourTickets);
+
     }
 
     private void processTicketHandler(Context context) {
