@@ -28,8 +28,9 @@ public class EmployeeService {
 
 
 
+
     private Employee sessionEmployee = null;
-    }
+
     private final EmployeeDAO employeeDAO;
 
     public EmployeeService(EmployeeDAO employeeDAO){
@@ -49,7 +50,7 @@ public class EmployeeService {
             isUnique = true;
         }
 
-        if (isUnique == true){
+        if (isUnique){
             return employeeDAO.create(employee);
         } else {
             return null;

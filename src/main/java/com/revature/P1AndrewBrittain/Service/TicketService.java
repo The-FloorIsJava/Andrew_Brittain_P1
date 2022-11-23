@@ -5,15 +5,27 @@ import com.revature.P1AndrewBrittain.DAO.TicketDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Models.Ticket;
 
+import java.util.ArrayList;
 import java.util.List;
 
-private final TicketDAO ticketDAO;
+
 public class TicketService {
+    private final TicketDAO ticketDAO;
     public TicketService(TicketDAO ticketDAO){
+
         this.ticketDAO = ticketDAO;
     }
 
-    public List<Ticket> getAllThisEmployeeTickets(){
-        return ticketDAO.findAll();
+    public List<Ticket> getAllThisEmployeeTickets(Employee employee){
+
+        return ticketDAO.getAllThisEmployeeTickets(employee);
     }
+
+    public Ticket addTicket(Ticket ticket){
+
+        return ticketDAO.create(ticket);
+    }
+
+
+
 }

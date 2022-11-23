@@ -3,31 +3,27 @@ package com.revature.P1AndrewBrittain.DAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Models.Ticket;
 import com.revature.P1AndrewBrittain.Util.ConnectionFactory;
-import com.revature.P1AndrewBrittain.Util.Exceptions.InvalidEmployeeInputException;
 import com.revature.P1AndrewBrittain.Util.Interface.Crudable;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketDAO implements Crudable<Employee> {
+public class TicketDAO {
 
-
-    @Override
     public Ticket create(Ticket newTicket) {
 
         try (Connection connection = ConnectionFactory.getConnectionFactory().getConnection()) {
 
 
 
-            String sql = "insert into ticket (amount, ticket_type, requester, ticket_approved) values (?, ?, ?, ?)";
+            String sql = "insert into ticket (amount, ticket_type, requester) values (?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setDouble(1, newTicket.getAmount());
             preparedStatement.setString(2, newTicket.getRequestType());
             preparedStatement.setString(3, newTicket.getRequester());
-            preparedStatement.setBoolean(4,newTicket.isTicketApproved());
 
             int checkInsert = preparedStatement.executeUpdate();
 
@@ -42,16 +38,15 @@ public class TicketDAO implements Crudable<Employee> {
         }
     }
 
-
-    @Override
-    public List<Ticket> findAll() {
+    public List<Ticket> getAllThisEmployeeTickets(Employee employee) {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
             List<Ticket> tickets = new ArrayList<>();
 
-            String sql = "select * from ticket";
+            String sql = "select * from ticket where requester = ? order by ticket.ticket_id";
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, employee.getEmployeeEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next()){
                 tickets.add(convertSqlInfoToTicket(resultSet));
@@ -66,15 +61,16 @@ public class TicketDAO implements Crudable<Employee> {
     }
 
 
-
-
-    private Employee convertSqlInfoToTicket(ResultSet resultSet) throws SQLException {
+    private Ticket convertSqlInfoToTicket(ResultSet resultSet) throws SQLException {
         Ticket ticket = new Ticket();
 
         ticket.setTicketId(resultSet.getInt("ticket_id"));
         ticket.setAmount(resultSet.getDouble("amount"));
-        ticket.se(resultSet.getBoolean("is_manager_true"));
+        ticket.setRequester(resultSet.getString("requester"));
+        ticket.setIsTicketApproved(resultSet.getString("ticket_approved"));
+        ticket.setRequestType(resultSet.getString("ticket_type"));
 
-        return employee;
+
+        return ticket;
     }
 }

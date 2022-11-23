@@ -5,9 +5,10 @@ public class Ticket {
 
 
     private double amount;
+
     private int ticketId;
     private String requestType;
-    private boolean isTicketApproved;
+    private String isTicketApproved;
     private String requester;
 
     @Override
@@ -27,20 +28,7 @@ public class Ticket {
         this.amount = amount;
         this.requester = requester;
         this.requestType = requestType;
-    }
-    public Ticket(double amount, String requester, String requestType, boolean isTicketApproved) {
-        this.amount = amount;
-        this.requester = requester;
-        this.requestType = requestType;
-    }
-    private String ticketPending(String approval){
-        if (!isTicketApproved){
-            return "Denied";
-        } else if (isTicketApproved){
-            return "Approved";
-        } else {
-            return "Pending";
-        }
+        this.isTicketApproved = "Pending";
     }
 
     public double getAmount() {
@@ -51,14 +39,6 @@ public class Ticket {
         this.amount = amount;
     }
 
-    public int getTicketId() {
-        return ticketId;
-    }
-
-    public void setTicketId(int ticketId) {
-        this.ticketId = ticketId;
-    }
-
     public String getRequestType() {
         return requestType;
     }
@@ -67,12 +47,12 @@ public class Ticket {
         this.requestType = requestType;
     }
 
-    public boolean isTicketApproved() {
+    public String getIsTicketApproved() {
         return isTicketApproved;
     }
 
-    public void setTicketApproved(boolean ticketApproved) {
-        isTicketApproved = ticketApproved;
+    public void setIsTicketApproved(String isTicketApproved) {
+        this.isTicketApproved = isTicketApproved;
     }
 
     public String getRequester() {
@@ -81,6 +61,14 @@ public class Ticket {
 
     public void setRequester(String requester) {
         this.requester = requester;
+    }
+
+    public int getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
     }
 
 }
