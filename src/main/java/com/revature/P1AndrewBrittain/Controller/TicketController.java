@@ -27,6 +27,9 @@ public class TicketController {
     public void ticketEndpoint(Javalin app){
         app.post("employeetix", this::ticketSubmitHandler);
         app.get("employeetix", this::viewTicketHandler);
+        app.get("employeetix/pending", this::viewTicketPendingHandler);
+        app.get("employeetix/denied", this::viewTicketDeniedHandler);
+        app.get("employeetix/approved", this::viewTicketApprovedHandler);
         app.post("process", this::processTicketHandler);
         app.get("process", this::getAllTicketHandler);
         app.get("tixhello", this::tixHelloHandler);
@@ -52,16 +55,68 @@ public class TicketController {
         List<Ticket> tickets = this.ticketService.getAllThisEmployeeTickets(employee);
 
         if (tickets == null){
-            context.json("No pending tickets.");
+            context.json("No currant tickets.");
             return;
         }
         context.json(tickets);
 
     }
 
+    private void viewTicketPendingHandler(Context context){
+        Employee employee = this.employeeService.getSessionEmployee();
+        if (employee == null) {
+            context.json("You are not logged in");
+            return;
+        }
+        List<Ticket> pendingTickets = this.ticketService.getAllThisEmployeePendingTickets(employee);
+
+        if (pendingTickets == null){
+            context.json("No pending tickets.");
+            return;
+        }
+        context.json(pendingTickets);
+    }
+
+    private void viewTicketApprovedHandler(Context context){
+        Employee employee = this.employeeService.getSessionEmployee();
+        if (employee == null) {
+            context.json("You are not logged in");
+            return;
+        }
+        List<Ticket> approvedTickets = this.ticketService.getAllThisEmployeeApprovedTickets(employee);
+
+        if (approvedTickets == null){
+            context.json("No pending tickets.");
+            return;
+        }
+        context.json(approvedTickets);
+    }
+    private void viewTicketDeniedHandler(Context context){
+        Employee employee = this.employeeService.getSessionEmployee();
+        if (employee == null) {
+            context.json("You are not logged in");
+            return;
+        }
+        List<Ticket> deniedTickets = this.ticketService.getAllThisEmployeeDeniedTickets(employee);
+
+        if (deniedTickets == null){
+            context.json("No pending tickets.");
+            return;
+        }
+        context.json(deniedTickets);
+    }
     private void processTicketHandler(Context context) {
     }
 
     private void getAllTicketHandler(Context context) {
+      }
+
+    private boolean managerAccess (){
+        Employee employee = this.employeeService.getSessionEmployee();
+        if (employee.getIsManagerTrue() == true){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

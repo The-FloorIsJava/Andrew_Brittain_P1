@@ -59,6 +59,69 @@ public class TicketDAO {
             return null;
         }
     }
+    public List<Ticket> getAllThisEmployeeApprovedTickets(Employee employee) {
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            List<Ticket> tickets = new ArrayList<>();
+
+            String sql = "select * from ticket where requester = ? ticket_approved = 'Approved' and order by ticket.ticket_id";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, employee.getEmployeeEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                tickets.add(convertSqlInfoToTicket(resultSet));
+            }
+
+            return tickets;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Ticket> getAllThisEmployeePendingTickets(Employee employee) {
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            List<Ticket> tickets = new ArrayList<>();
+
+            String sql = "select * from ticket where requester = ? ticket_approved = 'Pending' and order by ticket.ticket_id";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, employee.getEmployeeEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                tickets.add(convertSqlInfoToTicket(resultSet));
+            }
+
+            return tickets;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Ticket> getAllThisEmployeeDeniedTickets(Employee employee) {
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            List<Ticket> tickets = new ArrayList<>();
+
+            String sql = "select * from ticket where requester = ? ticket_approved = 'Denied' and order by ticket.ticket_id";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, employee.getEmployeeEmail());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                tickets.add(convertSqlInfoToTicket(resultSet));
+            }
+
+            return tickets;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     private Ticket convertSqlInfoToTicket(ResultSet resultSet) throws SQLException {

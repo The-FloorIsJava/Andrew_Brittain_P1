@@ -27,5 +27,15 @@ public class TicketService {
     }
 
 
+    public List<Ticket> getAllThisEmployeePendingTickets(Employee employee) {
+        return ticketDAO.getAllThisEmployeePendingTickets(employee);
+    }
 
+    public List<Ticket> getAllThisEmployeeApprovedTickets(Employee employee) {
+        return ticketDAO.getAllThisEmployeeApprovedTickets(employee);
+    }
+
+    public List<Ticket> getAllThisEmployeeDeniedTickets(Employee employee) {
+        return ticketDAO.getAllThisEmployeeDeniedTickets(employee);
+    }
 }
