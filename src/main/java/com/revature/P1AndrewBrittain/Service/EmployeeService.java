@@ -74,8 +74,6 @@ public void login(String employeeEmail, String employeePassword){
         sessionEmployee = employeeDAO.loginCheck(employeeEmail, employeePassword);
 }
 
-
-
 public void logout(){
        this.sessionEmployee = null;
 }

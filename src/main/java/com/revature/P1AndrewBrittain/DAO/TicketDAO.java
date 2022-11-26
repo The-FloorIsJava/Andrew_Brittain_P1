@@ -3,7 +3,6 @@ package com.revature.P1AndrewBrittain.DAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Models.Ticket;
 import com.revature.P1AndrewBrittain.Util.ConnectionFactory;
-import com.revature.P1AndrewBrittain.Util.Interface.Crudable;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class TicketDAO {
 
 
 
-            String sql = "insert into ticket (amount, ticket_type, requester) values (?, ?, ?)";
+            String sql = "insert into ticket (amount, ticket_type, requester, ticket_approved) values (?, ?, ?, 'Pending')";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -136,4 +135,40 @@ public class TicketDAO {
 
         return ticket;
     }
-}
+
+    public List<Ticket> getAllPendingTickets() {
+            try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+                List<Ticket> tickets = new ArrayList<>();
+
+                String sql = "select * from ticket where ticket_approved = 'Pending'";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+                    tickets.add(convertSqlInfoToTicket(resultSet));
+                }
+
+                return tickets;
+
+            } catch (SQLException e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+        public void updateTicket(int id, String newStatus){
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+
+            String sql = "update ticket set ticket_approved = ? where ticket_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newStatus);
+            preparedStatement.setInt(2, id);
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        }
+    }
+

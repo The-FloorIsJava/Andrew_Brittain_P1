@@ -1,11 +1,9 @@
 package com.revature.P1AndrewBrittain.Service;
 
-import com.revature.P1AndrewBrittain.DAO.EmployeeDAO;
 import com.revature.P1AndrewBrittain.DAO.TicketDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Models.Ticket;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,5 +35,13 @@ public class TicketService {
 
     public List<Ticket> getAllThisEmployeeDeniedTickets(Employee employee) {
         return ticketDAO.getAllThisEmployeeDeniedTickets(employee);
+    }
+
+    public List<Ticket> getManagerPendingTickets() {
+        return this.ticketDAO.getAllPendingTickets();
+    }
+
+    public void updateTicket(int iD, String status) {
+         ticketDAO.updateTicket(iD, status);
     }
 }

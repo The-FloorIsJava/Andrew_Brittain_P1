@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc24f330-8e31-42b9-b9fa-b7195d5eb794" name="Changes" comment="testing because git hasnt worked since yesterday. added variable in employee class, emploeeId, it serializes in sql but doesnt show in postman">
+    <list default="true" id="bc24f330-8e31-42b9-b9fa-b7195d5eb794" name="Changes" comment="employees can filter previous requests by status">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Util/DTO/ProcessTicketDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Controller/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Controller/TicketController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/DAO/TicketDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/DAO/TicketDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Service/EmployeeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Service/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/P1AndrewBrittain/Service/TicketService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669136862921</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="employees can filter previous requests by status">
+      <created>1669407098655</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669407098655</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -132,6 +141,7 @@
     <MESSAGE value="DAO" />
     <MESSAGE value="ticket controller" />
     <MESSAGE value="testing because git hasnt worked since yesterday. added variable in employee class, emploeeId, it serializes in sql but doesnt show in postman" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing because git hasnt worked since yesterday. added variable in employee class, emploeeId, it serializes in sql but doesnt show in postman" />
+    <MESSAGE value="employees can filter previous requests by status" />
+    <option name="LAST_COMMIT_MESSAGE" value="employees can filter previous requests by status" />
   </component>
 </project>

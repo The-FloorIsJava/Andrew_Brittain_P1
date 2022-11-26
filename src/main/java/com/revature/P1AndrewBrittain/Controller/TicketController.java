@@ -1,10 +1,12 @@
 package com.revature.P1AndrewBrittain.Controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.revature.P1AndrewBrittain.DAO.TicketDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Models.Ticket;
 import com.revature.P1AndrewBrittain.Service.EmployeeService;
 import com.revature.P1AndrewBrittain.Service.TicketService;
+import com.revature.P1AndrewBrittain.Util.DTO.ProcessTicketDTO;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,7 +57,7 @@ public class TicketController {
         List<Ticket> tickets = this.ticketService.getAllThisEmployeeTickets(employee);
 
         if (tickets == null){
-            context.json("No currant tickets.");
+            context.json("No current tickets.");
             return;
         }
         context.json(tickets);
@@ -105,15 +107,32 @@ public class TicketController {
         }
         context.json(deniedTickets);
     }
-    private void processTicketHandler(Context context) {
+    private void processTicketHandler(Context context) throws JsonProcessingException {
+        if (!managerAccess()){
+            context.json("This requires Manager credentials.");
+        } else {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ProcessTicketDTO processTicketDTO = objectMapper.readValue(context.body(), ProcessTicketDTO.class);
+            ticketService.updateTicket(processTicketDTO.getTicketId(), processTicketDTO.getIsTicketApproved());
+        }
     }
 
     private void getAllTicketHandler(Context context) {
+        if (managerAccess()){
+            List<Ticket> managerPendingTickets = this.ticketService.getManagerPendingTickets();
+            if (managerPendingTickets == null){
+                context.json("there are no Pending tickets right now.");
+            } else{
+                context.json(managerPendingTickets);
+            }
+        }else{
+            context.json("This requires Manager credentials");
+        }
       }
 
     private boolean managerAccess (){
         Employee employee = this.employeeService.getSessionEmployee();
-        if (employee.getIsManagerTrue() == true){
+        if (employee.getIsManagerTrue()){
             return true;
         } else {
             return false;
