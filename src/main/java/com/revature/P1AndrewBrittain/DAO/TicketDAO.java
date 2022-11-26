@@ -156,14 +156,16 @@ public class TicketDAO {
                 return null;
             }
         }
-        public void updateTicket(int id, String newStatus){
+        public void updateTicket(int iD, String newStatus){
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
 
             String sql = "update ticket set ticket_approved = ? where ticket_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, newStatus);
-            preparedStatement.setInt(2, id);
+            preparedStatement.setInt(2, iD);
+
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e){
             e.printStackTrace();

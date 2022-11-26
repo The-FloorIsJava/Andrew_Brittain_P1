@@ -113,6 +113,7 @@ public class TicketController {
         } else {
             ObjectMapper objectMapper = new ObjectMapper();
             ProcessTicketDTO processTicketDTO = objectMapper.readValue(context.body(), ProcessTicketDTO.class);
+            context.json(processTicketDTO);
             ticketService.updateTicket(processTicketDTO.getTicketId(), processTicketDTO.getIsTicketApproved());
         }
     }
