@@ -36,12 +36,12 @@ public class Employee {
         this.isManagerTrue = isManagerTrue;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "Employee Email: " + employeeEmail + " , Is a Manager?: " +
-                isManagerTrue +
-                "}";
+    public boolean isValidEmployee(){
+        return (this.employeeEmail != null) &(this.employeePassword != null);
+    }
+    public boolean isValidPassword(String password){
+        if (password == null) return false;
+        return this.employeePassword != null && this.employeePassword.equals(password);
     }
 }
 

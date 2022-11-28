@@ -7,24 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeService {
-/*
+
     public boolean isEmployeeValid(Employee newEmployee){
         if(newEmployee == null) return false;
         if(newEmployee.getEmployeeEmail() == null || newEmployee.getEmployeeEmail().trim().equals("")) return false;
-        if(newEmployee.getEmployeeName() == null || newEmployee.getEmployeeName().trim().equals("")) return false;
         return true;
     }
 
     public boolean isEmailAvailable(String email){
-        for(Employee employee: employeeList){
-            if(employee == null) break;
-            if(employee.getEmployeeEmail().equals(email)){
-                return false;
-            }
-        }
-        return true;
+            if(email == null) return false;
+            return true;
     }
-    */
+
 
 
 
@@ -65,9 +59,6 @@ public class EmployeeService {
 
     }
 
-    public List<Employee> getAllEmployees(){
-    return employeeDAO.findAll();
-    }
 
 public void login(String employeeEmail, String employeePassword){
         //implement with dao

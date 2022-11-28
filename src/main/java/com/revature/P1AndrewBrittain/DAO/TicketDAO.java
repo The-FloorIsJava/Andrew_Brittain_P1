@@ -62,7 +62,7 @@ public class TicketDAO {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
             List<Ticket> tickets = new ArrayList<>();
 
-            String sql = "select * from ticket where requester = ? ticket_approved = 'Approved' and order by ticket.ticket_id";
+            String sql = "select * from ticket where requester = ? and ticket_approved = 'Approved'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, employee.getEmployeeEmail());
@@ -83,7 +83,7 @@ public class TicketDAO {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
             List<Ticket> tickets = new ArrayList<>();
 
-            String sql = "select * from ticket where requester = ? ticket_approved = 'Pending' and order by ticket.ticket_id";
+            String sql = "select * from ticket where requester = ? and ticket_approved = 'Pending'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, employee.getEmployeeEmail());
@@ -104,7 +104,7 @@ public class TicketDAO {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
             List<Ticket> tickets = new ArrayList<>();
 
-            String sql = "select * from ticket where requester = ? ticket_approved = 'Denied' and order by ticket.ticket_id";
+            String sql = "select * from ticket where requester = ? and ticket_approved = 'Denied'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, employee.getEmployeeEmail());

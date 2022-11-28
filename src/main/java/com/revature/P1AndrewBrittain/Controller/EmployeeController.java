@@ -18,19 +18,17 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
     public void employeeEndpoint(Javalin app){
-        app.get("hello", this::helloHandler);
         app.post("register", this::postEmployeeHandler);
         app.post("login", this::loginHandler);
         app.delete("logout", this::logoutHandler);
-        app.get("allEmployees", this::getAllEmployeeHandler);
     }
-    private void helloHandler(Context context) {
 
-        context.result("Welcome to SkyNet");
-    }
     private void postEmployeeHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Employee employee = mapper.readValue(context.body(), Employee.class);
+        if (!employee.isValidEmployee()) {
+            context.json("You must include email and password to register.");
+        }
         employee = employeeService.addEmployee(employee);
         if (employee == null) {
             context.json("Your email is already registered.");
@@ -49,10 +47,7 @@ public class EmployeeController {
         employeeService.logout();
         context.json(employeeEmail + " is now logged out");
     }
-    private void getAllEmployeeHandler(Context context) {
-        List<Employee> allEmployees = employeeService.getAllEmployees();
-        context.json(allEmployees);
-    }
+
     }
 
 
