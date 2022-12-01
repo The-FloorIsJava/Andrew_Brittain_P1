@@ -34,12 +34,9 @@ public class TicketController {
         app.get("employeetix/approved", this::viewTicketApprovedHandler);
         app.post("process", this::processTicketHandler);
         app.get("process", this::getAllTicketHandler);
-        app.get("tixhello", this::tixHelloHandler);
     }
 
-    private void tixHelloHandler(Context context) {
-        context.result("Welcome to SkyNet, John Connor");
-    }
+
 
     private void ticketSubmitHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
