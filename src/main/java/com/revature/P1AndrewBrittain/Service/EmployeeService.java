@@ -67,7 +67,7 @@ public Employee login(String employeeEmail, String employeePassword){
 
 public void logout(){
        this.sessionEmployee = null;
-}
+} // this could be used to log logout times
 
 public Employee getSessionEmployee(){
         return this.sessionEmployee;

@@ -15,7 +15,7 @@ public class JavalinApp {
                 config.plugins.enableCors(cors ->{
                     cors.add(it ->{
                         it.anyHost();
-                        it.exposeHeader("");
+                        it.exposeHeader("Authorization");
                     });
                 });
             }

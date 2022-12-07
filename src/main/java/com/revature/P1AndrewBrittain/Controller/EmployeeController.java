@@ -53,7 +53,7 @@ public class EmployeeController {
         try{
         Employee employee = employeeService.login(loginCreds.getEmployeeEmail(), loginCreds.getEmployeePassword());
         String token = jwtUtility.createToken(employee);
-        context.header("Authorization, token");
+        context.header("Authorization" + token);
         context.json("Successfully logged in!");
 
         } catch (InvalidEmployeeInputException e){
