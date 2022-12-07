@@ -43,5 +43,9 @@ public class Employee {
         if (password == null) return false;
         return this.employeePassword != null && this.employeePassword.equals(password);
     }
+    private enum Tier{
+        EMPLOYEE,
+        MANAGER
+    }
 }
 

@@ -60,9 +60,9 @@ public class EmployeeService {
     }
 
 
-public void login(String employeeEmail, String employeePassword){
+public Employee login(String employeeEmail, String employeePassword){
         //implement with dao
-        sessionEmployee = employeeDAO.loginCheck(employeeEmail, employeePassword);
+    return employeeDAO.loginCheck(employeeEmail, employeePassword);
 }
 
 public void logout(){

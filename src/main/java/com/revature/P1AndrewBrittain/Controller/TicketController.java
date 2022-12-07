@@ -7,6 +7,7 @@ import com.revature.P1AndrewBrittain.Models.Ticket;
 import com.revature.P1AndrewBrittain.Service.EmployeeService;
 import com.revature.P1AndrewBrittain.Service.TicketService;
 import com.revature.P1AndrewBrittain.Util.DTO.ProcessTicketDTO;
+import com.revature.P1AndrewBrittain.Util.Tokens.JWTUtility;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,12 +19,18 @@ public class TicketController {
     
     TicketService ticketService;
 
+    Javalin app;
+
+    JWTUtility jwtUtility;
+
     private final EmployeeService employeeService;
 
 
-    public TicketController(EmployeeService employeeService, TicketService ticketService) {
+    public TicketController(EmployeeService employeeService, TicketService ticketService, Javalin app, JWTUtility jwtUtility) {
         this.employeeService = employeeService;
         this.ticketService = ticketService;
+        this.app = app;
+        this.jwtUtility = jwtUtility;
     }
 
     public void ticketEndpoint(Javalin app){
