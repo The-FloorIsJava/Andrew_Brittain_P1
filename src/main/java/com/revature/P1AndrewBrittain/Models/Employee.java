@@ -21,6 +21,9 @@ public class Employee {
         this.employeePassword = employeePassword;
         this.isManagerTrue = isManagerTrue;
     }
+    public Employee (String employeeEmail){
+        this.employeeEmail = employeeEmail;
+    }
     public String getEmployeeEmail() {
         return employeeEmail;
     }
