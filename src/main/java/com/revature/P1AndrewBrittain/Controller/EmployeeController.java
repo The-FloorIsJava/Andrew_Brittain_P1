@@ -31,8 +31,10 @@ public class EmployeeController {
         }
         employee = employeeService.addEmployee(employee);
         if (employee == null) {
-            context.json("Your email is already registered.");
+            context.status(400);
+//            context.json("Your email is already registered.");
         }else {
+            context.status(200);
             context.json(employee);
         }
     }

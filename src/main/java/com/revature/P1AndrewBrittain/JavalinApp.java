@@ -23,7 +23,17 @@ public class JavalinApp {
 
 
 
-        Javalin app = Javalin.create()
+        Javalin app = Javalin.create(
+                config -> {
+                    config.plugins.enableCors(cors -> {
+                        cors.add(it -> {
+                            it.anyHost();
+                            it.exposeHeader("");
+                        });
+                            }
+                    );
+                }
+                )
                 .start(8080);
 
         employeeController.employeeEndpoint(app);
