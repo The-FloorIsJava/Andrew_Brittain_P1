@@ -6,15 +6,26 @@ import com.revature.P1AndrewBrittain.DAO.EmployeeDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
 import com.revature.P1AndrewBrittain.Service.EmployeeService;
 import com.revature.P1AndrewBrittain.Util.DTO.LoginCreds;
+import com.revature.P1AndrewBrittain.Util.Exceptions.InvalidEmployeeInputException;
+import com.revature.P1AndrewBrittain.Util.Tokens.JWTUtility;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    public EmployeeController(EmployeeService employeeService){
+
+    Javalin app;
+
+    JWTUtility jwtUtility;
+
+
+    public EmployeeController(Javalin app, EmployeeService employeeService, JWTUtility jwtUtility){
+        this.app = app;
+        this.jwtUtility = jwtUtility;
         this.employeeService = employeeService;
     }
     public void employeeEndpoint(Javalin app){
@@ -41,10 +52,23 @@ public class EmployeeController {
     private void loginHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginCreds loginCreds = mapper.readValue(context.body(), LoginCreds.class);
-        employeeService.login(loginCreds.getEmployeeEmail(), loginCreds.getEmployeePassword());
+        try{
+        Employee employee = employeeService.login(loginCreds.getEmployeeEmail(), loginCreds.getEmployeePassword());
+        String token = jwtUtility.createToken(employee);
+        context.header("Authorization, token");
         context.json("Successfully logged in!");
+
+        } catch (InvalidEmployeeInputException e){
+            context.status(404);
+            context.json(e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+            context.status(500);
+            context.json("The developers need to fix something, apologies for any inconvience");
+        }
+
     }
-    private void logoutHandler(Context context) {
+        private void logoutHandler(Context context) {
         String employeeEmail = employeeService.getSessionEmployee().getEmployeeEmail();
         employeeService.logout();
         context.json(employeeEmail + " is now logged out");
