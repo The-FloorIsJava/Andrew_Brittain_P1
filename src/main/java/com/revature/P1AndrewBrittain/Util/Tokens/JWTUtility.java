@@ -50,7 +50,7 @@ public class JWTUtility {
                 .parseClaimsJws(token)
                 .getBody();
 
-        return Optional.of(new Employee(claims.getId(), claims.getIssuer()));
+        return Optional.of(new Employee(claims.getId()));
     }
 
     public boolean isTokenValid(String token){

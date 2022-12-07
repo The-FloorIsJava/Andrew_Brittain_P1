@@ -2,6 +2,7 @@ package com.revature.P1AndrewBrittain.Service;
 
 import com.revature.P1AndrewBrittain.DAO.EmployeeDAO;
 import com.revature.P1AndrewBrittain.Models.Employee;
+import com.revature.P1AndrewBrittain.Util.Tokens.JWTUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,11 @@ public class EmployeeService {
 
     private final EmployeeDAO employeeDAO;
 
-    public EmployeeService(EmployeeDAO employeeDAO){
+    private JWTUtility jwtUtility;
+
+    public EmployeeService(EmployeeDAO employeeDAO, JWTUtility jwtUtility){
         this.employeeDAO = employeeDAO;
+        this.jwtUtility = jwtUtility;
     }
     public Employee addEmployee(Employee employee){
         List<Employee> employees = employeeDAO.findAll();
@@ -69,7 +73,7 @@ public void logout(){
        this.sessionEmployee = null;
 }
 
-public Employee getSessionEmployee(){
-        return this.sessionEmployee;
+public Employee getSessionEmployee(String token){
+        return this.jwtUtility.extractTokenDetails(token);
 }
 }

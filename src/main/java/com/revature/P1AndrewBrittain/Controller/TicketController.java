@@ -53,7 +53,8 @@ public class TicketController {
     }
 
     private void viewTicketHandler(Context context) {
-        Employee employee = this.employeeService.getSessionEmployee();
+        String token = context.header("authorization");
+        Employee employee = this.employeeService.getSessionEmployee(token);
         if (employee == null) {
             context.json("You are not logged in");
             return;
@@ -69,7 +70,8 @@ public class TicketController {
     }
 
     private void viewTicketPendingHandler(Context context){
-        Employee employee = this.employeeService.getSessionEmployee();
+        String token = context.header("authorization");
+        Employee employee = this.employeeService.getSessionEmployee(token);
         if (employee == null) {
             context.json("You are not logged in");
             return;
@@ -84,7 +86,8 @@ public class TicketController {
     }
 
     private void viewTicketApprovedHandler(Context context){
-        Employee employee = this.employeeService.getSessionEmployee();
+        String token = context.header("authorization");
+        Employee employee = this.employeeService.getSessionEmployee(token);
         if (employee == null) {
             context.json("You are not logged in");
             return;
@@ -98,7 +101,8 @@ public class TicketController {
         context.json(approvedTickets);
     }
     private void viewTicketDeniedHandler(Context context){
-        Employee employee = this.employeeService.getSessionEmployee();
+        String token = context.header("authorization");
+        Employee employee = this.employeeService.getSessionEmployee(token);
         if (employee == null) {
             context.json("You are not logged in");
             return;
@@ -112,7 +116,8 @@ public class TicketController {
         context.json(deniedTickets);
     }
     private void processTicketHandler(Context context) throws JsonProcessingException {
-        if (!managerAccess()){
+        String token = context.header("authorization");
+        if (!managerAccess(token)){
             context.json("This requires Manager credentials.");
         } else {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -123,7 +128,8 @@ public class TicketController {
     }
 
     private void getAllTicketHandler(Context context) {
-        if (managerAccess()){
+        String token = context.header("authorization");
+        if (managerAccess(token)){
             List<Ticket> managerPendingTickets = this.ticketService.getManagerPendingTickets();
             if (managerPendingTickets == null){
                 context.json("there are no Pending tickets right now.");
@@ -135,8 +141,8 @@ public class TicketController {
         }
       }
 
-    private boolean managerAccess (){
-        Employee employee = this.employeeService.getSessionEmployee();
+    private boolean managerAccess (String token){
+        Employee employee = this.employeeService.getSessionEmployee(token);
         if (employee.getIsManagerTrue()){
             return true;
         } else {

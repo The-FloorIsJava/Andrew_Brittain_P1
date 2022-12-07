@@ -55,23 +55,26 @@ public class EmployeeController {
         try{
         Employee employee = employeeService.login(loginCreds.getEmployeeEmail(), loginCreds.getEmployeePassword());
         String token = jwtUtility.createToken(employee);
-        context.header("Authorization, token");
-        context.json("Successfully logged in!");
+        context.header("Authorization", token);
+        context.status(200);
+        context.json(employee);
+//        context.json("Successfully logged in!");
 
         } catch (InvalidEmployeeInputException e){
             context.status(404);
-            context.json(e.getMessage());
+//            context.json(e.getMessage());
         } catch (Exception e){
             e.printStackTrace();
             context.status(500);
-            context.json("The developers need to fix something, apologies for any inconvience");
+//            context.json("The developers need to fix something, apologies for any inconvience");
         }
 
     }
         private void logoutHandler(Context context) {
-        String employeeEmail = employeeService.getSessionEmployee().getEmployeeEmail();
+//        String employeeEmail = employeeService.getSessionEmployee().getEmployeeEmail();
         employeeService.logout();
-        context.json(employeeEmail + " is now logged out");
+//        context.json(employeeEmail + " is now logged out");
+            context.status(200);
     }
 
     }
