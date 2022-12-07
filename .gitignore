@@ -2,3 +2,4 @@ src/main/java/resources/db.properties
 target/
 .idea/
 *.iml
+db.properties
