@@ -7,10 +7,6 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
-    }
-
     public Employee(String employeeEmail, String employeePassword) {
         this.employeeEmail = employeeEmail;
         this.employeePassword = employeePassword;
