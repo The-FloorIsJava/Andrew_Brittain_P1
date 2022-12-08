@@ -142,12 +142,13 @@ public class TicketController {
         if (managerAccess(token)){
             List<Ticket> managerPendingTickets = this.ticketService.getManagerPendingTickets();
             if (managerPendingTickets == null){
-                context.json("there are no Pending tickets right now.");
+                context.status(404);
             } else{
                 context.json(managerPendingTickets);
+                context.status(200);
             }
         }else{
-            context.json("This requires Manager credentials");
+            context.status(403);
         }
       }
 

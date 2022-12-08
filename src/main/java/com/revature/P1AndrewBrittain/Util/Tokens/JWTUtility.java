@@ -36,6 +36,7 @@ public class JWTUtility {
                 .setId(String.valueOf(employee.getEmployeeEmail()))
                 .setIssuer("employeeERS-AndrewBN")
                 .claim("access", employee.getIsManagerTrue())
+                .claim("email", employee.getEmployeeEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000 * 8))
                 .signWith(new SecretKeySpec(chocolateSaltyBytes, "HmacSHA256"));
@@ -50,7 +51,7 @@ public class JWTUtility {
                 .parseClaimsJws(token)
                 .getBody();
 
-        return Optional.of(new Employee(claims.getId()));
+        return Optional.of(new Employee((String) claims.get("email"), (boolean) claims.get("access")));
     }
 
     public boolean isTokenValid(String token){

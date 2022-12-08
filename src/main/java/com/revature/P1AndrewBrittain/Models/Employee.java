@@ -17,6 +17,17 @@ public class Employee {
         this.employeePassword = employeePassword;
         this.isManagerTrue = isManagerTrue;
     }
+
+    public Employee(String email) {
+        this.employeeEmail = email;
+    }
+
+    public Employee(String email, boolean access) {
+        this.employeeEmail = email;
+        this.isManagerTrue = access;
+    }
+
+
     public String getEmployeeEmail() {
         return employeeEmail;
     }
