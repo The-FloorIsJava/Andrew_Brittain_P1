@@ -60,7 +60,7 @@ public class JWTUtility {
 
     public Employee extractTokenDetails(String token)  {
         if(!isTokenValid(token)) {
-            throw new UnauthorizedException("You've not logged in an established a token");
+            throw new UnauthorizedException("You've not logged in and established a token");
         }
         return parseToken(token).orElseThrow(InvalidTokenException::new);
     }

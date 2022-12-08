@@ -48,23 +48,33 @@ public class TicketController {
     private void ticketSubmitHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Ticket ticket = mapper.readValue(context.body(), Ticket.class);
+        String token = context.header("authorization");
+        ticket.setRequester(jwtUtility.extractTokenDetails(token).getEmployeeEmail());
         ticket = ticketService.addTicket(ticket);
-        context.json(ticket);
+        if (ticket != null) {
+            context.status(200);
+            context.json(ticket);
+        } else {
+            context.status(400);
+        }
     }
 
     private void viewTicketHandler(Context context) {
         String token = context.header("authorization");
         Employee employee = this.employeeService.getSessionEmployee(token);
         if (employee == null) {
-            context.json("You are not logged in");
+//            context.json("You are not logged in");
+            context.status(403);
             return;
         }
         List<Ticket> tickets = this.ticketService.getAllThisEmployeeTickets(employee);
 
         if (tickets == null){
-            context.json("No current tickets.");
+//            context.json("No current tickets.");
+            context.status(404);
             return;
         }
+        context.status(200);
         context.json(tickets);
 
     }
